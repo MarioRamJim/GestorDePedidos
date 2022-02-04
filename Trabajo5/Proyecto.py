@@ -215,6 +215,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_6.clicked.connect(self.wizardGenPDF)
 
         self.pushButton_7.clicked.connect(self.generarpdf)
+        self.pushButton_7.setEnabled(False)
 
         self.web = QWebEngineView()
         self.web.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
@@ -223,12 +224,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.outfile = ""
 
     def generarpdf(self):
-        
+        #Genera el PDF pero no llega a generar el QWebEngineView correctamente
         self.nombreTrabajadorPDF.setText("Juan")
         self.diaPDF.setValue(self.spinBox.value())
         self.genPdf()
         self.web.load(QUrl(Path(self.outfile).absolute().as_uri()))
-        print(QUrl(Path(self.outfile).absolute().as_uri()))
 
     def wizardGenPDF(self):
         self.wizardGenerarPDF.show()
@@ -421,7 +421,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     }
            
             self.outfile = "Formulario" + self.nombreTrabajadorPDF.text() + "Dia" + self.diaPDF.text()+".pdf"
-            template = PdfReader("InformeBase.pdf", decompress=False).pages[0]
+            template = PdfReader("Trabajo5/InformeBase.pdf", decompress=False).pages[0]
             template_obj = pagexobj(template)
 
             canvas = Canvas(self.outfile)
@@ -452,10 +452,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                             pedidos[x["idProducto"]] += x["cantidad"]
                         except Exception:
                             pedidos[x["idProducto"]] = x["cantidad"]
+            
+            precioTotal = 0
 
+            if(self.tienePrecioPDF.isChecked()):
+                for y in pedidos.keys():
+                    key = y
+                    for x in GestionarProductos.productos.find():
+                        if(x["id"]) == key:
+                            precioTotal += (x["precio"]*pedidos[x["id"]])
+                    
+            print(precioTotal)
             canvas.drawString(288,313,"Pedidos con los que se creo el informe: " + str(contPedidos))
             canvas.drawString(288,292,"Total de productos pedidos: " + str(contProductos))
-            
+            canvas.drawString(288,271,"Precio Total del pedido: " + str(precioTotal))
             if(self.colorGraficaPDF.currentText()=="Rojo"):
                 color=(255, 0, 0)
 
@@ -470,6 +480,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             canvas.drawString(300, ystart, self.data['NombreTrabajador'])
             canvas.drawString(270, ystart-135, self.data['DiaGenerado'])
 
+          
             claves = []
             for x in pedidos.keys():
                 claves.append(x)
