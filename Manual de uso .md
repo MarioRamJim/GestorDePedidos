@@ -92,4 +92,4 @@ En esta pantalla se podrá decidir si el informe que se genere tendrá o no prec
 
 ![](Imgs/Aspose.Words.b4661483-e369-400c-9e31-5093e11c8711.020.png)
 
-Por último este informe generaría un informe genérico del día decidido y lo embebería en la aplicación, pero esta funcionalidad no está añadida.
+Por último este botón generaría un informe genérico del día decidido y lo embebería en la aplicación, pero esta funcionalidad no está añadida.
