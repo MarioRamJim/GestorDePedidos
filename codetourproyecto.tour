@@ -1,0 +1,46 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "CodeTourProyecto",
+  "steps": [
+    {
+      "file": "Trabajo5/MainWindow.py",
+      "description": "A partir de aquí al final de esta clase se declaran los componentes de la ventana principal",
+      "line": 27
+    },
+    {
+      "file": "Trabajo5/MainWindow.py",
+      "description": "Aquí se le da el valor al texto de los componentes previamente declarados",
+      "line": 98
+    },
+    {
+      "file": "Trabajo5/Proyecto.py",
+      "description": "Aqui se mapea en Json los objetos que se introduciran a la base de datos",
+      "line": 28
+    },
+    {
+      "file": "Trabajo5/Proyecto.py",
+      "description": "A partir de aqui hasta el final, el init va creando los wizards pertinentes y sus componentes",
+      "line": 32,
+      "selection": {
+        "start": {
+          "line": 32,
+          "character": 1
+        },
+        "end": {
+          "line": 33,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "Trabajo5/Proyecto.py",
+      "description": "A partir de aquí se crean todos los métodos que van a ser usados por la aplicación",
+      "line": 226
+    },
+    {
+      "file": "Trabajo5/GestionarPedidos.py",
+      "description": "Tanto esta clase como GestionarProductos siguen la estructura necesaria para crear un objeto y guardarlo en mongita",
+      "line": 4
+    }
+  ]
+}
