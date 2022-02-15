@@ -216,19 +216,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.pushButton_7.clicked.connect(self.generarpdf)
         self.pushButton_7.setEnabled(False)
-
-        self.web = QWebEngineView()
-        self.web.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
-        self.web.setGeometry(QRect(500,500,3000,3000))
-
+        
         self.outfile = ""
 
     def generarpdf(self):
-        #Genera el PDF pero no llega a generar el QWebEngineView correctamente
         self.nombreTrabajadorPDF.setText("Juan")
         self.diaPDF.setValue(self.spinBox.value())
         self.genPdf()
-        self.web.load(QUrl(Path(self.outfile).absolute().as_uri()))
 
     def wizardGenPDF(self):
         self.wizardGenerarPDF.show()
