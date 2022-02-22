@@ -20,6 +20,8 @@ from pathlib import Path
 from PySide6.QtCore import QUrl
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWebEngineCore import QWebEngineSettings
+import webbrowser
+
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
@@ -216,9 +218,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.pushButton_7.clicked.connect(self.generarpdf)
         self.pushButton_7.setEnabled(False)
-        
+
         self.outfile = ""
 
+        self.pushButton_11.clicked.connect(lambda:webbrowser.open("https://github.com/MarioRamJim/GestorDePedidos/blob/main/Manual%20de%20uso%20.md", new=2, autoraise=True))
+   
     def generarpdf(self):
         self.nombreTrabajadorPDF.setText("Juan")
         self.diaPDF.setValue(self.spinBox.value())
@@ -397,6 +401,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.listWidget.setItem(row,3,QTableWidgetItem(str(x["dia"])))
                 row+=1
 
+    def genGrafica(self):
+        exporter = pg.exporters.ImageExporter(self.graphWidget.plotItem)
+        exporter.parameters()['width'] = 500
+        exporter.export('fileName.png')
+
     def genPdf(self):
 
             if(self.tienePrecioPDF.isChecked):
@@ -456,7 +465,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         if(x["id"]) == key:
                             precioTotal += (x["precio"]*pedidos[x["id"]])
                     
-            print(precioTotal)
             canvas.drawString(288,313,"Pedidos con los que se creo el informe: " + str(contPedidos))
             canvas.drawString(288,292,"Total de productos pedidos: " + str(contProductos))
             canvas.drawString(288,271,"Precio Total del pedido: " + str(precioTotal))
@@ -487,10 +495,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             bargraph = pg.BarGraphItem(x = claves, height = valores, width = 0.6, brush = color)
             self.graphWidget.addItem(bargraph)
 
-            exporter = pg.exporters.ImageExporter(self.graphWidget.plotItem)
-            exporter.parameters()['width'] = 500
-            exporter.export('fileName.png')
-
+            self.genGrafica()
             
             self.graphWidget.hide()
 
